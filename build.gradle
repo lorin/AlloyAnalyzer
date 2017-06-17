@@ -27,5 +27,5 @@ dependencies {
 }
 
 // Define the main class for the application
-mainClassName = 'edu.mit.csail.sdg.alloy4wholeSimpleGUI'
+mainClassName = 'edu.mit.csail.sdg.alloy4whole.SimpleGUI'
 
