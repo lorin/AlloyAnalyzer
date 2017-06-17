@@ -20,10 +20,7 @@ repositories {
 }
 
 dependencies {
-    // Use JUnit test framework
-    testCompile 'junit:junit:4.12'
-
-    compile files('/Users/lhochstein/dev/AlloyAnalyzer/vendor')
+    compile files('vendor')
 }
 
 // Define the main class for the application
