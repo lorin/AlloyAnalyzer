@@ -20,13 +20,12 @@ repositories {
 }
 
 dependencies {
-    // This dependency is found on compile classpath of this component and consumers.
-    compile 'com.google.guava:guava:21.0'
-
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
+
+    compile files('/Users/lhochstein/dev/AlloyAnalyzer/vendor')
 }
 
 // Define the main class for the application
-mainClassName = 'SimpleGUI'
+mainClassName = 'edu.mit.csail.sdg.alloy4wholeSimpleGUI'
 
