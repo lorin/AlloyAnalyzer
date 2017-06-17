@@ -195,7 +195,6 @@ public final class MailBug implements UncaughtExceptionHandler, Runnable {
          System.err.println(dump(ex));
          System.err.flush();
       }
-      final JTextArea problem = OurUtil.textarea("", 50, 50, true, false, new EmptyBorder(0,0,0,0));
       for(Throwable ex2 = ex; ex2 != null; ex2 = ex2.getCause()) {
          if (ex2 instanceof StackOverflowError) OurDialog.fatal(new Object[] {
                "Sorry. The Alloy Analyzer has run out of stack space.",
