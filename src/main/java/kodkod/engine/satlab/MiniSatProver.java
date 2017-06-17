@@ -28,7 +28,7 @@ import kodkod.util.ints.IntIterator;
 import kodkod.util.ints.IntSet;
 
 /**
- * Java wrapper for Niklas EŽn and Niklas Sšrensson MiniSAT solver 
+ * Java wrapper for Niklas EÃ©n and Niklas SÃ¶rensson MiniSAT solver.
  * with proof logging.
  * @author Emina Torlak
  */
