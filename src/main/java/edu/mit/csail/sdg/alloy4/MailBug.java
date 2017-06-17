@@ -45,9 +45,6 @@ public final class MailBug implements UncaughtExceptionHandler, Runnable {
    /** The name of the most recent Alloy4 (as queried from alloy.mit.edu); "unknown" if alloy.mit.edu has not replied yet. */
    private static String latestAlloyVersionName = "unknown";
 
-   /** The URL where the bug report should be sent. */
-   private static final String ALLOY_URL = "http://alloy.mit.edu/postbug4.php";
-
    /** The URL where the current version info can be queried. */
    private static final String ALLOY_NOW = "http://alloy.mit.edu/alloy4/download/alloy4.txt";
 
@@ -183,31 +180,6 @@ public final class MailBug implements UncaughtExceptionHandler, Runnable {
       synchronized(MailBug.class) { latestAlloyVersionName = result;  latestAlloyVersion = num; }
    }
 
-   /** This method sends the crash report then displays alloy.mit.edu's reply in a text window. */
-   private static void sendCrashReport (Thread thread, Throwable ex, String email, String problem) {
-      try {
-         final String report = prepareCrashReport(thread, ex, email, problem);
-         final String alt = "Sorry. An error has occurred in posting the bug report.\n" +
-              "Please email this report to alloy@mit.edu directly.\n\n" + dump(ex);
-         final JTextArea status = OurUtil.textarea("Sending the bug report... please wait...",
-               10, 40, false, true, new LineBorder(Color.GRAY));
-         new Thread(new Runnable() {
-            public void run() {
-               final String output = readAll(ALLOY_URL, report, alt);
-               SwingUtilities.invokeLater(new Runnable() {
-                  public void run() {
-                     status.setText(output);
-                     status.setCaretPosition(0);
-                  }
-               });
-            }
-         }).start();
-         OurDialog.showmsg("Sending the bug report... please wait...", status);
-      } finally {
-         System.exit(1);
-      }
-   }
-
    /** This method is an exception handler for uncaught exceptions. */
    public void uncaughtException (Thread thread, Throwable ex) {
       if (isGUI(ex)) return;
@@ -258,19 +230,6 @@ public final class MailBug implements UncaughtExceptionHandler, Runnable {
             " ",
             "There is no way for Alloy to continue execution, so pressing OK will shut down Alloy."
       });
-      if (OurDialog.yesno(new Object[] {
-            "Sorry. A fatal internal error has occurred.",
-            " ",
-            "You may submit a bug report (via HTTP).",
-            "The error report will include your system",
-            "configuration, but no other information.",
-            " ",
-            "If you'd like to be notified about a fix,",
-            "please describe the problem and enter your email address.",
-            " ",
-            OurUtil.makeHT("Email:", 5, email, null),
-            OurUtil.makeHT("Problem:", 5, scroll, null)
-      }, yes, no)) sendCrashReport(thread, ex, email.getText(), problem.getText());
       System.exit(1);
    }
 }
