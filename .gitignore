@@ -7,3 +7,5 @@ edu/**/*.class
 .gradle
 gradle
 build
+.idea
+AlloyAnalyzer.iml
